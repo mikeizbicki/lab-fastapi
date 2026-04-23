@@ -13,15 +13,10 @@ args = parser.parse_args()
 client = OpenAI(base_url=args.url, api_key=args.apikey)
 
 def chat(message, history):
-    response = client.chat.completions.create(
+    completion = client.chat.completions.create(
         model=args.model,
-        messages=[{"role": "user", "content": message}],
-        stream=True
+        messages=[{"role": "user", "content": message}]
     )
-    text = ""
-    for chunk in response:
-        if chunk.choices[0].delta.content:
-            text += chunk.choices[0].delta.content
-            yield text
+    return completion.choices[0].message.content
 
 gr.ChatInterface(chat).launch(server_port=args.port)
