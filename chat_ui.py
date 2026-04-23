@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+'''
+A bare-bones web interface for conversations with LLMs served from openai-compatible endpoints.
+'''
+
 import argparse
 import gradio as gr
 from openai import OpenAI
@@ -13,9 +17,14 @@ args = parser.parse_args()
 client = OpenAI(base_url=args.url, api_key=args.apikey)
 
 def chat(message, history):
+    messages = []
+    for user_msg, assistant_msg in history:
+        messages.append({"role": "user", "content": user_msg})
+        messages.append({"role": "assistant", "content": assistant_msg})
+    messages.append({"role": "user", "content": message})
     completion = client.chat.completions.create(
         model=args.model,
-        messages=[{"role": "user", "content": message}]
+        messages=messages
     )
     return completion.choices[0].message.content
 
