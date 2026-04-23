@@ -18,9 +18,8 @@ client = OpenAI(base_url=args.url, api_key=args.apikey)
 
 def chat(message, history):
     messages = []
-    for user_msg, assistant_msg in history:
-        messages.append({"role": "user", "content": user_msg})
-        messages.append({"role": "assistant", "content": assistant_msg})
+    for msg in history:
+        messages.append({"role": msg["role"], "content": msg["content"]})
     messages.append({"role": "user", "content": message})
     completion = client.chat.completions.create(
         model=args.model,
