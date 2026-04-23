@@ -1,3 +1,9 @@
+'''
+A basic openai-compatible endpoint for servering model responses.
+
+The existing "model" just counts the number of times that the user has input a message.
+'''
+
 from fastapi import FastAPI
 import uvicorn
 
