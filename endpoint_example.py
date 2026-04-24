@@ -10,19 +10,19 @@ import uvicorn
 
 app = FastAPI()
 
-@app.get("/", response_class=HTMLResponse)
+@app.api_route("/", methods=["GET", "POST"], response_class=HTMLResponse)
 async def english():
     return 'hello world\n'
 
-@app.get("/spanish", response_class=HTMLResponse)
-async def english():
+@app.api_route("/spanish", methods=["GET", "POST"], response_class=HTMLResponse)
+async def spanish():
     return 'hola mundo\n'
 
-@app.get("/latin", response_class=HTMLResponse)
-async def english():
+@app.api_route("/latin", methods=["GET", "POST"], response_class=HTMLResponse)
+async def latin():
     return 'salve munde\n'
 
-@app.post("/v1/chat/completions")
+@app.api_route("/v1/chat/completions", methods=["GET", "POST"])
 async def chat_completions(request: dict) -> dict:
     messages = request.get("messages", [])
     user_message_count = sum(1 for msg in messages if msg.get("role") == "user")
