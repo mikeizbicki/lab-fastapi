@@ -7,6 +7,7 @@ The existing "model" just counts the number of times that the user has input a m
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 import uvicorn
+from chat import Chat
 
 app = FastAPI()
 
@@ -25,15 +26,22 @@ async def latin():
 @app.api_route("/v1/chat/completions", methods=["GET", "POST"])
 async def chat_completions(request: dict) -> dict:
     messages = request.get("messages", [])
-    user_message_count = sum(1 for msg in messages if msg.get("role") == "user")
     
-    response_content = f"this is response number {user_message_count}"
+    chat = Chat()
+    
+    if len(messages) > 1:
+        chat.messages = messages[:-1]
+    
+    last_message = messages[-1] if messages else {"role": "user", "content": ""}
+    last_content = last_message.get("content", "")
+    
+    response_content = chat.send_message(last_content)
     
     return {
         "id": "chatcmpl-123",
         "object": "chat.completion",
         "created": 0,
-        "model": request.get("model", "unknown"),
+        "model": request.get("model", chat.MODEL),
         "choices": [
             {
                 "index": 0,
