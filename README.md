@@ -134,6 +134,13 @@ After running the command, visit the url displayed in your terminal (probably <h
 Have a brief conversation with the chatbot,
 and verify that everything works.
 
+> **NOTE:**
+> The `:7860` in the url above defines a *port* that the webserver will run on.
+> You will need to have multiple web servers running at different points,
+> and the port allows us to specify which one of these web servers we will connect to.
+> There are `2**16 = 65536` valid ports,
+> and so a single computer can run up to 65536 servers at a time.
+
 ### Creating your own OpenAI-compatible Endpoint
 
 If we create our own OpenAI compatible endpoint,
@@ -141,7 +148,7 @@ then we get all of this other tooling available to us "for free".
 Programmers love using other people's code,
 and we've been doing it well before ChatGPT came along.
 
-<img width=400px src=img/steal.png />
+<img width=300px src=img/steal.png />
 
 The file `endpoint.py` contains a simple example of an OpenAI compatible endpoing written in FastAPI.
 Run it with the command
@@ -178,9 +185,11 @@ $ curl -X POST http://127.0.0.1:8000/v1/chat/completions -H "Content-Type: appli
 {"id":"chatcmpl-123","object":"chat.completion","created":0,"model":"unknown","choices":[{"index":0,"message":{"role":"assistant","content":"this is response number 1"},"finish_reason":"stop"}],"usage":{"prompt_tokens":0,"completion_tokens":0,"total_tokens":0}}
 ```
 
-Now that we have an API setup, we can setup a web interface to chat with our program by just pointing the `gradio_server.py` file to the API endpoint.
+Now that we have our own API created, we can easily create a web interface to chat with our program:
+We just point the `gradio_server.py` file we used before to our new endpoint.
+
 You will need to have to terminals running in order to do this.
-First, ensure that the `endpoint.py` programm is running in the first terminal.
+First, ensure that the `endpoint.py` program is running in the first terminal.
 Then, run the `gradio_server.py` program with the url of your `endpoint.py` server:
 ```
 $ python3 gradio_server.py --url=http://127.0.0.1:8000/v1
