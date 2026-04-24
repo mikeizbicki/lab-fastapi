@@ -143,10 +143,10 @@ and we've been doing it well before ChatGPT came along.
 
 <img width=400px src=img/steal.png />
 
-The file `endpoint_example.py` contains a simple example of an OpenAI compatible endpoing written in FastAPI.
+The file `endpoint.py` contains a simple example of an OpenAI compatible endpoing written in FastAPI.
 Run it with the command
 ```
-$ python3 endpoint_example.py
+$ python3 endpoint.py
 INFO:     Started server process [180865]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
@@ -180,8 +180,8 @@ $ curl -X POST http://127.0.0.1:8000/v1/chat/completions -H "Content-Type: appli
 
 Now that we have an API setup, we can setup a web interface to chat with our program by just pointing the `gradio_server.py` file to the API endpoint.
 You will need to have to terminals running in order to do this.
-First, ensure that the `endpoint_example.py` programm is running in the first terminal.
-Then, run the `gradio_server.py` program with the url of your `endpoint_example.py` server:
+First, ensure that the `endpoint.py` programm is running in the first terminal.
+Then, run the `gradio_server.py` program with the url of your `endpoint.py` server:
 ```
 $ python3 gradio_server.py --url=http://127.0.0.1:8000/v1
 * Running on local URL:  http://127.0.0.1:7860
@@ -200,13 +200,12 @@ Visit the url for the `gradio_server.py`, and you can have a conversation with t
 Now we will add a web interface to not your own project, but someone else's in the class.
 
 1. Fork your partner's project then clone it to your laptop.
-1. Copy the `gradio_server.py` and `endpoint_example.py` files into the clone.
-1. Modify the `endpoint_example.py` file so that it uses your partner's `Chat` class and not the mock.
+1. Copy the `gradio_server.py` and `endpoint.py` files into the clone.
+1. Modify the `endpoint.py` file so that it uses your partner's `Chat` class and not the mock.
 
     > **HINT:**
-    > The `endpoint_example.py` is structured to make this easy.
-    > All you should have to do is import the `Chat` class,
-    > then replace the `chat = MockChat()` line with `chat = Chat()`.
+    > The `endpoint.py` is structured to make this easy.
+    > All you should have to do is change the `import` line to import their `Chat` instead of the `Chat` from `mock_chat.py`.
 
 1. Verify that you can have a conversation with the LLM,
     and verify that questions like "what does the README say this project is about?" correctly use the tool calls to answer the question.

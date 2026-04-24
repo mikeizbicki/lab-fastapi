@@ -1,7 +1,6 @@
 import json
 import os
 from groq import Groq
-from tools.calculate import calculate, tool_schema
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -39,7 +38,6 @@ class Chat:
                 'content': message
             }
         )   
-        tools = [tool_schema]
 
         # in order to make non-deterministic code deterministic;
         # in general very hard CS problem;
@@ -52,8 +50,6 @@ class Chat:
             model=self.MODEL,
             temperature=temperature,
             seed=0,
-            tools=tools,
-            tool_choice="auto",
         )
 
         response_message = chat_completion.choices[0].message
@@ -64,7 +60,6 @@ class Chat:
             
             # Map function names to implementations
             available_functions = {
-                "calculate": calculate,
             }
             
             # Add the assistant's response to conversation

@@ -7,7 +7,7 @@ The existing "model" just counts the number of times that the user has input a m
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 import uvicorn
-from chat import Chat
+from mock_chat import Chat
 
 app = FastAPI()
 

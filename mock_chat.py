@@ -13,6 +13,11 @@ Never gonna run around and desert you.
 Never gonna make you cry,
 Never gonna say goodbye,
 Never gonna tell a lie and hurt you.
+
+---
+
+Notice that I am a mock openai endpoint that does not actually invoke an LLM.
+I just always return the same static response.
 '''.strip()
 
 
