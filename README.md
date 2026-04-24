@@ -6,13 +6,9 @@ In Part 2, you will add a web interface to a partner's LLM project.
 
 ## Part 1: Webservers and APIs
 
-You will need to clone this repo and cd into the clone.
-First, install the dependencies for this lab
-```
-$ pip3 install -r requirements.txt
-```
+You will need to clone this repo, cd into the clone, and install all dependencies in the `requirements.txt file.
 
-### APIs
+### Using APIs
 
 An API (Application Programmer Interface) is a just a webpage that returns JSON instead of HTML.
 We'll walk through a quick example of using reddit's API,
@@ -24,7 +20,7 @@ Click on the url and observe that the subreddit is full of memes.
 
 Here is one of my favorites:
 
-<img width=400px src=img/programmerhumor.jpg />
+<img width=300px src=img/programmerhumor.jpg />
 
 The API *endpoint* is the url the returns the JSON.
 In the reddit API, to get the endpoint for a subreddit, we just append `.json` to the end of the url.
@@ -48,23 +44,30 @@ The point is just that we can get all the information from reddit we might want 
 
 `curl` is the standard shell tool for working with APIs:
 all it does is download a webpage and print the contents to the screen.
-For example, the website <https://cheat.sh/python> contains a simple python cheatsheet.
-You can view it in the terminal with the command
+We could "scrape" reddit by using the API endpoint with curl like
+```
+$ curl https://www.reddit.com/r/ProgrammerHumor.json
+```
+You should see a bunch of JSON printed in the terminal.
+
+As another example:
+The website <https://cheat.sh/python> contains a simple python cheatsheet.
+You can view it firefox by clicking the link or in the terminal with the command
 ```
 $ curl https://cheat.sh/python
 ```
 
-**Using groq.com via the API**
-
-The [Groq QuickStart Guide](https://console.groq.com/docs/quickstart) has a section on using the API from the shell.
+Many programmers use curl to access LLM APIs.
+The [Groq QuickStart Guide](https://console.groq.com/docs/quickstart) has a section on using the API from the shell with curl.
 It looks something like
 
 <img src=img/curl.png />
 
-The `curl` command contains a lot more inside of it than just the URL;
-these are "headers" that handle the authentication (i.e. logging in with the `$GROQ_API_KEY`).
-Visit the webpage and copy/paste the command above into your shell.
-You will see the raw output of the groq API model,
+The `curl` command contains a lot more inside of it than just the URL:
+1. "headers" that handle the authentication (i.e. logging in with the `$GROQ_API_KEY`), and
+1. "messages" that contain the messages being passed to the model.
+Visit the quickstart guide and copy/paste the command above into your shell.
+You will see the raw output of the groq API,
 which is a large json object.
 There are many fields in this object,
 and you don't need to decipher them all,
@@ -91,16 +94,23 @@ but you should be able to find the text that the model responds with.
 >                "role": "assistant",
 >                "content": "Fast language models are crucial for various applications a
 > ```
+> Notice that the structure of this JSON object closely matches the structure of the python `response` variable from the command
+> ```
+> response = self.client.chat.completions.create( ... )
+> text = response.choices[0].message.content
+> ```
 
 ### Launching a custom chat web interface
 
-Notice that the url that you curled above looked like
+The url that you curled above should look like
 ```
 https://api.groq.com/openai/v1/chat/completions
 ```
-Groq implmements [the OpenAI-compatible LLM API](https://bentoml.com/llm/model-interaction/openai-compatible-api).
+Notice the `openai` in the url;
+this is groq's implmementation of [the OpenAI-compatible LLM API](https://bentoml.com/llm/model-interaction/openai-compatible-api).
 All modern LLM providers (e.g. OpenAI, Anthropic, openrouter.ai, etc.) implement this API,
 and lots of tooling has been built around this API.
+This tooling is generic and can work with any LLM provider.
 
 For example, many people have built custom web-interfaces for AI chatbots that are quite a bit more powerful than the standard <https://chatgpt.com>.
 Famous python-based examples include [oobabooga](https://github.com/oobabooga/textgen) and [open-webui](https://github.com/open-webui/open-webui).
@@ -113,7 +123,7 @@ These interfaces can do things like:
 In this lab, we're not going to explore these powerful features,
 and instead use just a simple interface provided by [gradio](https://www.gradio.app/guides/quickstart).
 
-The file `gradio_server.py` contains a simple web server that can be used to connect to any OpenAI compatible endpoint.
+The file `gradio_server.py` contains a web server that can be used to connect to any OpenAI compatible endpoint.
 The following command will create a web interface for the groq endpoint you can use:
 ```
 $ python3 gradio_server.py --url=https://api.groq.com/openai/v1 --apikey=$GROQ_API_KEY
