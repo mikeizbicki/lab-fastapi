@@ -5,10 +5,22 @@ The existing "model" just counts the number of times that the user has input a m
 '''
 
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 import uvicorn
 
 app = FastAPI()
 
+@app.get("/", response_class=HTMLResponse)
+async def english():
+    return 'hello world\n'
+
+@app.get("/spanish", response_class=HTMLResponse)
+async def english():
+    return 'hola mundo\n'
+
+@app.get("/latin", response_class=HTMLResponse)
+async def english():
+    return 'salve munde\n'
 
 @app.post("/v1/chat/completions")
 async def chat_completions(request: dict) -> dict:
@@ -41,4 +53,4 @@ async def chat_completions(request: dict) -> dict:
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8000)
