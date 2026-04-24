@@ -212,6 +212,12 @@ Visit the url for the `gradio_server.py`, and you can have a conversation with t
 Now we will add a web interface to not your own project, but someone else's in the class.
 
 1. Fork your partner's project then clone it to your laptop.
+
+    > **NOTE:**
+    > It does not matter which branch you use.
+    > You should be able to use the `master`/`main` branch to get working code from the project 3 submission even if the project 4 is not complete.
+    > This is because the project 4 code is supposed to be under the `agent` branch.
+
 1. Copy the `gradio_server.py` and `endpoint.py` files into the clone.
 1. Modify the `endpoint.py` file so that it uses your partner's `Chat` class and not the mock.
 
