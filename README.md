@@ -41,6 +41,8 @@ The point is just that we can get all the information from reddit we might want 
 > [Ebay provides a free API](https://developer.ebay.com/api-docs/static/ebay-rest-landing.html) that we could have used to "scrape" its search results.
 > It requires creating an account to use,
 > but by using the ebay API we replace all the work you did with a single call to `requests.get` using the ebay API endpoint.
+>
+> <img width=300px src=img/scrape.png />
 
 `curl` is the standard shell tool for working with APIs:
 all it does is download a webpage and print the contents to the screen.
