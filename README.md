@@ -6,7 +6,7 @@ In Part 2, you will add a web interface to a partner's LLM project.
 
 ## Part 1: Webservers and APIs
 
-You will need to clone this repo, cd into the clone, and install all dependencies in the `requirements.txt file.
+You will need to clone this repo, cd into the clone, and install all dependencies in the `requirements.txt` file.
 
 ### Using APIs
 
