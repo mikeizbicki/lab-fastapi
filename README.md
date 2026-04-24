@@ -1,6 +1,6 @@
 # APIs and LLM Web Interfaces
 
-In this lab you will create a web interface for the LLM-based class project.
+In this lab you will create a web interface for your LLM project.
 Part 1 of this lab walks through the steps for using and creating APIs and web interfaces.
 In Part 2, you will add a web interface to a partner's LLM project.
 
