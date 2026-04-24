@@ -153,6 +153,7 @@ and we've been doing it well before ChatGPT came along.
 <img width=300px src=img/steal.png />
 
 The file `endpoint.py` contains a simple example of an OpenAI compatible endpoing written in FastAPI.
+(The name FastAPI comes from the fact that it is designed for creating APIs.)
 Run it with the command
 ```
 $ python3 endpoint.py
