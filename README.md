@@ -66,8 +66,8 @@ It looks something like
 <img src=img/curl.png />
 
 The `curl` command contains a lot more inside of it than just the URL:
-1. "headers" that handle the authentication (i.e. logging in with the `$GROQ_API_KEY`), and
-1. "messages" that contain the messages being passed to the model.
+1. "headers" (`-H`) that handle the authentication (i.e. logging in with the `$GROQ_API_KEY`), and
+1. "data" (`-d`) that contain the messages being passed to the model.
 Visit the quickstart guide and copy/paste the command above into your shell.
 You will see the raw output of the groq API,
 which is a large json object.
